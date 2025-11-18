@@ -168,7 +168,8 @@ class License {
 		$license->customer_name = $row->customer_name;
 		$license->status = $row->status;
 		$license->activation_limit = (int) $row->activation_limit;
-		$license->expires_at = $row->expires_at;
+		// Normalize invalid MySQL zero date to null
+		$license->expires_at = ( $row->expires_at && $row->expires_at !== '0000-00-00 00:00:00' ) ? $row->expires_at : null;
 		$license->created_at = $row->created_at;
 		$license->updated_at = $row->updated_at;
 		return $license;
@@ -183,6 +184,18 @@ class License {
 		global $wpdb;
 		$table = $this->get_table();
 
+		// Normalize expires_at: empty string, null, or invalid date should be NULL
+		$expires_at = $this->expires_at;
+		if ( empty( $expires_at ) || $expires_at === '0000-00-00 00:00:00' || trim( $expires_at ) === '' ) {
+			$expires_at = null;
+		} else {
+			// Validate date format
+			$timestamp = strtotime( $expires_at );
+			if ( $timestamp === false ) {
+				$expires_at = null;
+			}
+		}
+
 		$data = array(
 			'license_key'    => $this->license_key,
 			'product_id'     => $this->product_id,
@@ -190,27 +203,77 @@ class License {
 			'customer_name'  => sanitize_text_field( $this->customer_name ),
 			'status'         => $this->status,
 			'activation_limit' => $this->activation_limit,
-			'expires_at'     => $this->expires_at,
 		);
 
+		// Handle expires_at separately for NULL values using direct SQL
 		if ( $this->id ) {
-			$result = $wpdb->update(
-				$table,
-				$data,
-				array( 'id' => $this->id ),
-				array( '%s', '%d', '%s', '%s', '%s', '%d', '%s' ),
-				array( '%d' )
-			);
+			// Update existing license
+			if ( $expires_at === null ) {
+				// Use direct SQL for NULL value
+				$result = $wpdb->query(
+					$wpdb->prepare(
+						"UPDATE $table SET 
+							license_key = %s,
+							product_id = %d,
+							customer_email = %s,
+							customer_name = %s,
+							status = %s,
+							activation_limit = %d,
+							expires_at = NULL
+						WHERE id = %d",
+						$data['license_key'],
+						$data['product_id'],
+						$data['customer_email'],
+						$data['customer_name'],
+						$data['status'],
+						$data['activation_limit'],
+						$this->id
+					)
+				);
+			} else {
+				$data['expires_at'] = $expires_at;
+				$result = $wpdb->update(
+					$table,
+					$data,
+					array( 'id' => $this->id ),
+					array( '%s', '%d', '%s', '%s', '%s', '%d', '%s' ),
+					array( '%d' )
+				);
+			}
 			return $result !== false;
 		} else {
+			// Insert new license
 			if ( ! $this->license_key ) {
 				$this->license_key = self::generate_key();
 				$data['license_key'] = $this->license_key;
 			}
-			$result = $wpdb->insert( $table, $data, array( '%s', '%d', '%s', '%s', '%s', '%d', '%s' ) );
-			if ( $result ) {
-				$this->id = $wpdb->insert_id;
-				return $this->id;
+			
+			if ( $expires_at === null ) {
+				// Use direct SQL for NULL value
+				$result = $wpdb->query(
+					$wpdb->prepare(
+						"INSERT INTO $table 
+							(license_key, product_id, customer_email, customer_name, status, activation_limit, expires_at)
+						VALUES (%s, %d, %s, %s, %s, %d, NULL)",
+						$data['license_key'],
+						$data['product_id'],
+						$data['customer_email'],
+						$data['customer_name'],
+						$data['status'],
+						$data['activation_limit']
+					)
+				);
+				if ( $result ) {
+					$this->id = $wpdb->insert_id;
+					return $this->id;
+				}
+			} else {
+				$data['expires_at'] = $expires_at;
+				$result = $wpdb->insert( $table, $data, array( '%s', '%d', '%s', '%s', '%s', '%d', '%s' ) );
+				if ( $result ) {
+					$this->id = $wpdb->insert_id;
+					return $this->id;
+				}
 			}
 			return false;
 		}

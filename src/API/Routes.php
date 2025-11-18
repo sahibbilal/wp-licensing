@@ -134,11 +134,45 @@ class Routes {
 
 		register_rest_route(
 			'wp-licensing/v1',
+			'/products/(?P<id>\d+)',
+			array(
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $controller, 'update_product' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
+				array(
+					'methods'             => 'DELETE',
+					'callback'            => array( $controller, 'delete_product' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
+			)
+		);
+
+		register_rest_route(
+			'wp-licensing/v1',
 			'/stats',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $controller, 'get_stats' ),
 				'permission_callback' => array( $this, 'check_admin_permission' ),
+			)
+		);
+
+		register_rest_route(
+			'wp-licensing/v1',
+			'/settings',
+			array(
+				array(
+					'methods'             => 'GET',
+					'callback'            => array( $controller, 'get_settings' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $controller, 'save_settings' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
 			)
 		);
 	}

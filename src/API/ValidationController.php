@@ -7,6 +7,7 @@
 
 namespace WP_Licensing\API;
 
+use WP_Licensing\Helpers\Email;
 use WP_Licensing\Helpers\RateLimiter;
 use WP_Licensing\Helpers\Security;
 use WP_Licensing\Models\Activation;
@@ -111,7 +112,7 @@ class ValidationController {
 		$activation = Activation::find_by_license_and_site( $license->id, $site_url );
 
 		if ( $activation ) {
-			// Update last check
+			// Update last check (existing activation, no email needed)
 			$activation->update_last_check();
 
 			$response_time = microtime( true ) - $start_time;
@@ -149,6 +150,9 @@ class ValidationController {
 		$activation->user_agent = Security::get_user_agent();
 		$activation->status = 'active';
 		$activation->save();
+
+		// Send email notification for new activation
+		Email::send_license_activated( $license, $site_url );
 
 		$response_time = microtime( true ) - $start_time;
 		RateLimiter::log_request( '/validate', 'POST', $license_key, 200, $response_time );

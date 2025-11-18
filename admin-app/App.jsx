@@ -3,6 +3,8 @@ import Dashboard from './components/Dashboard';
 import Licenses from './components/Licenses';
 import Products from './components/Products';
 import Stats from './components/Stats';
+import ApiPlugins from './components/ApiPlugins';
+import Settings from './components/Settings';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -55,6 +57,18 @@ const App = () => {
           >
             Products
           </button>
+          <button
+            className={activeTab === 'api-plugins' ? 'active' : ''}
+            onClick={() => setActiveTab('api-plugins')}
+          >
+            API & Plugins
+          </button>
+          <button
+            className={activeTab === 'settings' ? 'active' : ''}
+            onClick={() => setActiveTab('settings')}
+          >
+            Settings
+          </button>
         </nav>
       </div>
 
@@ -66,6 +80,8 @@ const App = () => {
             {activeTab === 'dashboard' && <Dashboard stats={stats} />}
             {activeTab === 'licenses' && <Licenses />}
             {activeTab === 'products' && <Products />}
+            {activeTab === 'api-plugins' && <ApiPlugins />}
+            {activeTab === 'settings' && <Settings />}
           </>
         )}
       </div>
