@@ -6,6 +6,8 @@ const Licenses = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingLicense, setEditingLicense] = useState(null);
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
     product_id: '',
@@ -13,6 +15,9 @@ const Licenses = () => {
     customer_name: '',
     activation_limit: 1,
     status: 'active',
+    expires_at: '',
+  });
+  const [editFormData, setEditFormData] = useState({
     expires_at: '',
   });
 
@@ -119,6 +124,64 @@ const Licenses = () => {
     }
   };
 
+  const openEditModal = (license) => {
+    setEditingLicense(license);
+    // Convert expires_at to datetime-local format (YYYY-MM-DDTHH:mm)
+    let expiresAtValue = '';
+    if (license.expires_at) {
+      const date = new Date(license.expires_at);
+      if (!isNaN(date.getTime())) {
+        // Format: YYYY-MM-DDTHH:mm
+        expiresAtValue = date.toISOString().slice(0, 16);
+      }
+    }
+    setEditFormData({
+      expires_at: expiresAtValue,
+    });
+    setShowEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setShowEditModal(false);
+    setEditingLicense(null);
+    setEditFormData({
+      expires_at: '',
+    });
+  };
+
+  const handleUpdateLicense = async (e) => {
+    e.preventDefault();
+    try {
+      // Send empty string if expires_at is empty to set to never expire
+      const updateData = {
+        expires_at: editFormData.expires_at || '',
+      };
+      
+      const response = await fetch(
+        `${wpLicensing.apiUrl}licenses/${editingLicense.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': wpLicensing.nonce,
+          },
+          body: JSON.stringify(updateData),
+        }
+      );
+
+      if (response.ok) {
+        closeEditModal();
+        fetchLicenses();
+      } else {
+        const error = await response.json();
+        alert('Error: ' + (error.error || 'Failed to update license'));
+      }
+    } catch (error) {
+      console.error('Error updating license:', error);
+      alert('Error updating license');
+    }
+  };
+
   return (
     <div className="wp-licensing-licenses">
       <div className="licenses-header">
@@ -127,6 +190,60 @@ const Licenses = () => {
           Create License
         </button>
       </div>
+
+      {showEditModal && editingLicense && (
+        <div className="modal-overlay" onClick={closeEditModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Edit License Expiry</h3>
+            <form onSubmit={handleUpdateLicense}>
+              <div className="form-group">
+                <label>License Key</label>
+                <input
+                  type="text"
+                  value={editingLicense.license_key}
+                  disabled
+                  style={{ backgroundColor: '#f0f0f1', cursor: 'not-allowed' }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Customer</label>
+                <input
+                  type="text"
+                  value={editingLicense.customer_name || editingLicense.customer_email}
+                  disabled
+                  style={{ backgroundColor: '#f0f0f1', cursor: 'not-allowed' }}
+                />
+              </div>
+              <div className="form-group">
+                <label>Current Expiry</label>
+                <input
+                  type="text"
+                  value={editingLicense.expires_at || 'Never'}
+                  disabled
+                  style={{ backgroundColor: '#f0f0f1', cursor: 'not-allowed' }}
+                />
+              </div>
+              <div className="form-group">
+                <label>New Expiry Date & Time</label>
+                <input
+                  type="datetime-local"
+                  value={editFormData.expires_at}
+                  onChange={(e) => setEditFormData({ ...editFormData, expires_at: e.target.value })}
+                />
+                <p className="description">
+                  Leave empty to set license to never expire. Use datetime-local format (YYYY-MM-DD HH:mm).
+                </p>
+              </div>
+              <div className="form-actions">
+                <button type="submit" className="button button-primary">Update Expiry</button>
+                <button type="button" className="button" onClick={closeEditModal}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
@@ -249,6 +366,13 @@ const Licenses = () => {
                     </td>
                     <td>{license.expires_at || 'Never'}</td>
                     <td>
+                      <button
+                        className="button button-small"
+                        onClick={() => openEditModal(license)}
+                        style={{ marginRight: '5px' }}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="button button-small"
                         onClick={() => handleDelete(license.id)}

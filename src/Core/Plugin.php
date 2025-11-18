@@ -113,10 +113,16 @@ class Plugin {
 
 		// Enqueue React app
 		$asset_file_path = WP_LICENSING_PLUGIN_DIR . 'build/admin-app.asset.php';
+		$build_file = WP_LICENSING_PLUGIN_DIR . 'build/admin-app.js';
+		
+		if ( ! file_exists( $build_file ) ) {
+			return; // Don't enqueue if build doesn't exist
+		}
+		
 		$asset_file = file_exists( $asset_file_path ) 
 			? include $asset_file_path 
 			: array(
-				'dependencies' => array( 'react', 'react-dom', 'wp-api-fetch' ),
+				'dependencies' => array(), // React is bundled, no external deps needed
 				'version'      => WP_LICENSING_VERSION,
 			);
 		
@@ -144,6 +150,7 @@ class Plugin {
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
 				'root'     => esc_url_raw( rest_url() ),
 				'baseURL'  => admin_url( 'admin.php?page=wp-licensing' ),
+				'siteUrl'  => home_url(),
 			)
 		);
 	}

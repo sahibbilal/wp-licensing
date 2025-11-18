@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WP Licensing
- * Plugin URI: https://example.com/wp-licensing
+ * Plugin URI: https://wpcorex.com/products/wp-licensing
  * Description: Professional WordPress SaaS Licensing & Auto Update System
  * Version: 1.0.0
- * Author: Your Name
- * Author URI: https://example.com
+ * Author: Bilal Mahmood
+ * Author URI: https://wpcorex.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: wp-licensing

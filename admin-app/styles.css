@@ -204,3 +204,393 @@
   color: #666;
 }
 
+/* Product slug styling */
+.wp-list-table code {
+  background: #f0f0f1;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #2271b1;
+}
+
+/* API & Plugins */
+.wp-licensing-api-plugins {
+  margin-top: 20px;
+}
+
+.api-plugins-header {
+  margin-bottom: 30px;
+}
+
+.api-plugins-header h2 {
+  margin: 0 0 10px 0;
+}
+
+.api-plugins-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.api-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.api-section {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 25px;
+}
+
+.api-section h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #1d2327;
+}
+
+.section-description {
+  color: #646970;
+  margin-bottom: 25px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.endpoint-card {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.endpoint-card:last-child {
+  margin-bottom: 0;
+}
+
+.endpoint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.endpoint-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.method-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.method-badge.method-get {
+  background: #61affe;
+  color: white;
+}
+
+.method-badge.method-post {
+  background: #49cc90;
+  color: white;
+}
+
+.method-badge.method-put {
+  background: #fca130;
+  color: white;
+}
+
+.method-badge.method-delete {
+  background: #f93e3e;
+  color: white;
+}
+
+.endpoint-path {
+  background: #f0f0f1;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #2271b1;
+}
+
+.endpoint-title h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.copy-button {
+  font-size: 12px;
+  padding: 4px 10px;
+  height: auto;
+}
+
+.endpoint-description {
+  color: #646970;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.endpoint-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-section h5 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d2327;
+}
+
+.params-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid #ddd;
+}
+
+.params-table thead {
+  background: #f0f0f1;
+}
+
+.params-table th {
+  padding: 10px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  border-bottom: 2px solid #ddd;
+}
+
+.params-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 13px;
+}
+
+.params-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.code-block {
+  background: #1e1e1e;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.code-header {
+  background: #252526;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #3e3e42;
+}
+
+.code-header span {
+  color: #cccccc;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.copy-code {
+  color: #4ec9b0;
+  text-decoration: none;
+  font-size: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.copy-code:hover {
+  color: #6ed4c0;
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 15px;
+  overflow-x: auto;
+}
+
+.code-block code {
+  color: #d4d4d4;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.products-list {
+  margin-top: 20px;
+}
+
+.no-products {
+  padding: 40px;
+  text-align: center;
+  color: #646970;
+}
+
+.api-usage-example {
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.api-usage-example p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.usage-code {
+  display: block;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  margin: 10px 0;
+  word-break: break-all;
+  overflow-x: auto;
+}
+
+.integration-guide {
+  margin-top: 20px;
+}
+
+.integration-guide h4 {
+  margin: 20px 0 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.integration-guide ol {
+  margin-left: 20px;
+  line-height: 1.8;
+}
+
+.integration-guide li {
+  margin-bottom: 8px;
+}
+
+.button-small {
+  padding: 4px 8px;
+  font-size: 12px;
+  height: auto;
+  line-height: 1.4;
+}
+
+.button-link {
+  background: none;
+  border: none;
+  color: #2271b1;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.button-link:hover {
+  color: #135e96;
+}
+
+/* Settings */
+.wp-licensing-settings {
+  margin-top: 20px;
+}
+
+.wp-licensing-settings h2 {
+  margin-bottom: 10px;
+}
+
+.wp-licensing-settings .description {
+  color: #646970;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+.settings-section {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.settings-section h3 {
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  color: #1d2327;
+}
+
+.settings-section .form-group {
+  margin-bottom: 25px;
+}
+
+.settings-section .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.settings-section .form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.settings-section .form-group label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.settings-section .form-group .required {
+  color: #d63638;
+  margin-left: 4px;
+}
+
+.settings-section .form-group input[type="number"] {
+  max-width: 200px;
+}
+
+.settings-section .form-group .description {
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: #646970;
+  font-style: italic;
+}
+
+.notice {
+  padding: 12px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+  border-radius: 4px;
+}
+
+.notice-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.notice-error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
