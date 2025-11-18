@@ -11,8 +11,15 @@ A professional, commercial-grade WordPress plugin for managing software licenses
 - [Admin Dashboard](#admin-dashboard)
 - [Integration Guide](#integration-guide)
 - [API Reference](#api-reference)
-- [Security](#security)
+- [Security Features](#security-features)
+- [License States](#license-states)
+- [Project Structure](#project-structure)
+- [Development Setup](#development-setup)
+- [Database Tables](#database-tables)
+- [Common Integration Patterns](#common-integration-patterns)
+- [Troubleshooting](#troubleshooting)
 - [Support](#support)
+- [Download Integration Files](#download-integration-files)
 
 ## 🎯 Overview
 
@@ -188,7 +195,7 @@ This guide will show you how to integrate WP Licensing into your own WordPress p
 
 ### Quick Start (5 Minutes)
 
-1. **Download the integration files** from the [Integration Files Repository](https://github.com/your-username/wp-licensing-integration-files) (or see example plugin below)
+1. **Download the integration files** from the [Integration Files Repository](https://github.com/sahibbilal/wp-licensing-product) (or see example plugin below)
 2. **Copy the files** to your plugin's `includes/` directory
 3. **Rename the classes** to match your plugin name
 4. **Configure** the license server URL and Product ID
@@ -199,7 +206,7 @@ This guide will show you how to integrate WP Licensing into your own WordPress p
 
 You can download the ready-to-use integration files from:
 
-**🔗 [Integration Files Repository](https://github.com/your-username/wp-licensing-integration-files)**
+**🔗 [Integration Files Repository](https://github.com/sahibbilal/wp-licensing-product)**
 
 The repository contains:
 - `class-license-manager.php` - Handles license validation and deactivation
@@ -696,7 +703,7 @@ Developed by Bilal Mahmood for the WordPress community.
 
 To integrate WP Licensing into your plugin, download the integration files:
 
-**🔗 [Download Integration Files](https://github.com/your-username/wp-licensing-integration-files)**
+**🔗 [Download Integration Files](hhttps://github.com/sahibbilal/wp-licensing-product)**
 
 The integration files include:
 - ✅ `class-license-manager.php` - License validation and management
