@@ -4,22 +4,22 @@ A professional, commercial-grade WordPress plugin for managing software licenses
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [How It Works](#how-it-works)
-- [Installation](#installation)
-- [Admin Dashboard](#admin-dashboard)
-- [Integration Guide](#integration-guide)
-- [API Reference](#api-reference)
-- [Security Features](#security-features)
-- [License States](#license-states)
-- [Project Structure](#project-structure)
-- [Development Setup](#development-setup)
-- [Database Tables](#database-tables)
-- [Common Integration Patterns](#common-integration-patterns)
-- [Troubleshooting](#troubleshooting)
-- [Support](#support)
-- [Download Integration Files](#download-integration-files)
+- [Overview](#-overview)
+- [Features](#-features)
+- [How It Works](#-how-it-works)
+- [Installation](#-installation)
+- [Admin Dashboard](#-admin-dashboard)
+- [Integration Guide](#-integration-guide)
+- [API Reference](#-api-reference)
+- [Security Features](#-security-features)
+- [License States](#-license-states)
+- [Project Structure](#-project-structure)
+- [Development Setup](#-development-setup)
+- [Database Tables](#-database-tables)
+- [Common Integration Patterns](#-common-integration-patterns)
+- [Troubleshooting](#-troubleshooting)
+- [Support](#-support)
+- [Download Integration Files](#-download-integration-files)
 
 ## 🎯 Overview
 
